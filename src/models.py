@@ -16,17 +16,17 @@ class User(Base):
     last_name = Column(String(250))
     email = Column(String(250))
 
-class FavoriteCharacter(Base):
-    __tablename__ = 'Favorite Character'
+class FavoriteCharacters(Base):
+    __tablename__ = 'Favorite Characters'
     id = Column(Integer, primary_key=True)
-    favorite_character = Column(String(40))
+    character_name = Column(String(40))
     favorite_id = Column(Integer,ForeignKey('User.id'))
     user = relationship(User)
 
-class FavoritePlanet(Base):
-    __tablename__ = 'Favorite Planet'
+class FavoritePlanets(Base):
+    __tablename__ = 'Favorite Planets'
     id = Column(Integer, primary_key=True)
-    favorite_planet = Column(String(40))
+    planet_name = Column(String(40))
     favorite_id = Column(Integer,ForeignKey('User.id'))
     user = relationship(User)
 
