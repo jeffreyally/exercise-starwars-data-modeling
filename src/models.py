@@ -8,26 +8,50 @@ from eralchemy import render_er
 
 Base = declarative_base()
 
-class Person(Base):
-    __tablename__ = 'person'
-    # Here we define columns for the table person
-    # Notice that each column is also a normal Python instance attribute.
+class User(Base):
+    __tablename__ = 'User'
     id = Column(Integer, primary_key=True)
-    name = Column(String(250), nullable=False)
+    username = Column(String(250))
+    first_name = Column(String(250))
+    last_name = Column(String(250))
+    email = Column(String(250))
 
-class Address(Base):
-    __tablename__ = 'address'
+class FavoriteCharacter(Base):
+    __tablename__ = 'Favorite Character'
+    id = Column(Integer, primary_key=True)
+    favorite_character = Column(String(40))
+    favorite_id = Column(Integer,ForeignKey('User.id'))
+    user = relationship(User)
+
+class FavoritePlanet(Base):
+    __tablename__ = 'Favorite Planet'
+    id = Column(Integer, primary_key=True)
+    favorite_planet = Column(String(40))
+    favorite_id = Column(Integer,ForeignKey('User.id'))
+    user = relationship(User)
+
+class BlogPost(Base):
+    __tablename__ = 'Blog Post'
+    id = Column(Integer, primary_key=True)
+    blog_text = Column(String(500))
+    author_id = Column(Integer,ForeignKey('User.id'))
+    user = relationship(User)
+    
+    
+
+#class Address(Base):
+ #   __tablename__ = 'address'
     # Here we define columns for the table address.
     # Notice that each column is also a normal Python instance attribute.
-    id = Column(Integer, primary_key=True)
-    street_name = Column(String(250))
-    street_number = Column(String(250))
-    post_code = Column(String(250), nullable=False)
-    person_id = Column(Integer, ForeignKey('person.id'))
-    person = relationship(Person)
+  #  id = Column(Integer, primary_key=True)
+   # street_name = Column(String(250))
+    #street_number = Column(String(250))
+    #post_code = Column(String(250), nullable=False)
+    #person_id = Column(Integer, ForeignKey('person.id'))
+    #person = relationship(Person)
 
-    def to_dict(self):
-        return {}
+    #def to_dict(self):
+     #   return {}
 
 ## Draw from SQLAlchemy base
 render_er(Base, 'diagram.png')
