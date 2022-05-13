@@ -1,6 +1,7 @@
 import os
 import sys
-from sqlalchemy import Column, ForeignKey, Integer, String
+from datetime import datetime
+from sqlalchemy import Column, ForeignKey, Integer, String, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy import create_engine
@@ -35,6 +36,7 @@ class BlogPost(Base):
     id = Column(Integer, primary_key=True)
     blog_text = Column(String(500))
     author_id = Column(Integer,ForeignKey('User.id'))
+    date_posted = Column(DateTime, nullable=False, default= datetime.utcnow)
     user = relationship(User)
     
     
